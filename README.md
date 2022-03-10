@@ -17,7 +17,7 @@ The original implementation of this model was proposed by [Ulyanov et al.](https
 - rasterio
 - jupyter notebook
 
-## 2. Zero-Shot Super Resolution
+## 2. Zero-Shot Super Resolution (ΖSSR)
 The original implementation of this model was proposed by [Shocher et al.](https://github.com/assafshocher/ZSSR) 
 
 ### Requirments 
