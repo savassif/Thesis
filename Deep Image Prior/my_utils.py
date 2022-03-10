@@ -1,19 +1,15 @@
-from glob import glob
 from importlib.resources import path
-import earthpy as et
 import earthpy.spatial as es
-import earthpy.plot as ep
 import os 
-from osgeo import gdal
 from datetime import datetime
 import matplotlib.pyplot as plt
 import rasterio as rio
+from osgeo import gdal
 from glob import glob
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
 from skimage import exposure
-import plotly.graph_objects as go
 
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -27,7 +23,7 @@ def tiff2png(path_to_files,path_to_save):
         path_to_files = path_to_files[:-1]
     if not os.path.exists(str(path_to_save)):
         os.mkdir(path_to_save)
-    for file in glob(path_to_files+'/*.tiff'):
+    for file in sorted(glob(path_to_files+'/*.tiff')):
         with rio.open(file,'r') as f:
             img = f.read()
             file_name = file.split('/')[-1].split('.')[0]
@@ -51,7 +47,7 @@ def tiff2jpeg(path_to_files,path_to_save):
         path_to_files = path_to_files[:-1]
     if not os.path.exists(str(path_to_save)):
         os.mkdir(path_to_save)
-    for file in glob(path_to_files+'/*.tiff'):
+    for file in sorted(glob(path_to_files+'/*.tiff')):
         with rio.open(file,'r') as f:
             img = f.read()
             file_name = file.split('/')[-1].split('.')[0]
@@ -89,7 +85,7 @@ def get_data2(path_to_directory,paths_to_imgs=False,imgs=True,norm=True):
         path_to_directory = path_to_directory[:-1]
     path_dict = {}
     img_dict = {}
-    for file in glob(path_to_directory+'/*.tiff'):
+    for file in sorted(glob(path_to_directory+'/*.tiff')):
         if paths_to_imgs:
             if file.split('_')[-2] in path_dict:
                 path_dict[file.split('_')[-2]].append(file)
@@ -127,7 +123,7 @@ def get_data(path_to_directory,paths_to_imgs=False,imgs=True,norm=True):
         path_to_directory = path_to_directory[:-1]
     path_dict = {}
     img_dict = {}
-    for file in glob(path_to_directory+'/*.tiff'):
+    for file in sorted(glob(path_to_directory+'/*.tiff')):
         if paths_to_imgs:
             if file.split('_')[-2] in path_dict:
                 path_dict[file.split('_')[-2]].append(file)
@@ -167,7 +163,7 @@ def get_patches(path_to_directory,type=None,image_num=None):
         full_path = path_to_directory+f'/image_{image_num}*.tif'
     else :
         full_path = path_to_directory+f'/*{type}.tif'
-    for file in glob(full_path):
+    for file in sorted(glob(full_path)):
         if file.split('_')[-4].split('/')[-1] in img_dict:
             with rio.open(file,'r') as f:
                 img = f.read()
@@ -238,7 +234,7 @@ def read_bands(img_path,resolution=None):
             path = img_path+resolutions[1]
         elif resolution == 60 :
             path = img_path+resolutions[2]
-        S_sentinel_bands = glob(path)
+        S_sentinel_bands = sorted(glob(path))
         S_sentinel_bands.sort()
         l = []
         for i in S_sentinel_bands:
@@ -254,7 +250,7 @@ def read_bands(img_path,resolution=None):
             l=[]
             r = r_path.split('/')[1][1:]
             path = img_path+r_path
-            tmp = glob(path)
+            tmp = sorted(glob(path))
             tmp.sort()
             S_sentinel_bands_dict[r] = tmp
             for i in S_sentinel_bands_dict[r]:
