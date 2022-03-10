@@ -10,21 +10,7 @@ import imageio
 from skimage import exposure
 from cv2 import imwrite  
 
-def get_im(im_path):
-    img = imageio.imread(im_path)
-    # img = stretch_im(img,1)
-    img = img.astype(np.float32) / np.iinfo(img.dtype).max
-    return (img)
-def stretch_im(arr,str_clip=1):
-    s_min = str_clip
-    s_max = 100 - str_clip
-    arr_rescaled = np.zeros_like(arr)
-    for ii, band in enumerate(arr):
-        lower, upper = np.nanpercentile(band, (s_min, s_max))
-        arr_rescaled[ii] = exposure.rescale_intensity(
-            band, in_range=(lower, upper)
-        )
-    return arr_rescaled.copy()
+
 
   
 class ZSSR:
@@ -83,7 +69,7 @@ class ZSSR:
         
 
         # Read input image (can be either a numpy array or a path to an image file)
-        self.input = input_img if type(input_img) is not str else get_im(input_img)
+        self.input = input_img if type(input_img) is not str else _get_im(input_img)
         print(self.input.shape)
         # if self.input.shape[-1]==4 :
         #     self.input = self.input[:,:,:3]
@@ -485,3 +471,19 @@ class ZSSR:
         # These line are needed in order to see the graphics at real time
         self.fig.canvas.draw()
         plt.pause(0.01)
+
+def _get_im(im_path):
+    img = imageio.imread(im_path)
+    # img = _stretch_im(img,1)
+    img = img.astype(np.float32) / np.iinfo(img.dtype).max
+    return (img)
+def _stretch_im(arr,str_clip=1):
+    s_min = str_clip
+    s_max = 100 - str_clip
+    arr_rescaled = np.zeros_like(arr)
+    for ii, band in enumerate(arr):
+        lower, upper = np.nanpercentile(band, (s_min, s_max))
+        arr_rescaled[ii] = exposure.rescale_intensity(
+            band, in_range=(lower, upper)
+        )
+    return arr_rescaled.copy()
