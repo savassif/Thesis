@@ -1,6 +1,6 @@
 # Thesis
 Unsupervised Super Resolution for Sentinel-2 satellite imagery
-
+------------------------------------------------------------------------------------------------------------------
 In this work two unsupervised deep learning models were utilized for Super Resolving satellite imagery obtained from Sentinel-2 constellation. 
 
 ## 1. Deep Image Prior (DIP) 
