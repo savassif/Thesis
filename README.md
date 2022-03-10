@@ -15,7 +15,6 @@ The original implementation of this model was proposed by [Ulyanov et al.](https
 - scikit-image
 - gdal
 - rasterio
-- plotly
 - jupyter notebook
 
 ## 2. Zero-Shot Super Resolution
