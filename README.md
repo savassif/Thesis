@@ -29,7 +29,7 @@ The original implementation of this model was proposed by [Shocher et al.](https
 - opencv-python
 - imageio
 
-## 3. Degradation Aware Super Resolution (DASR) 
+## 3. Degradation-Aware Super Resolution (DASR) 
 The original implementation of this modes was proposed by [Wang et al.](https://github.com/The-Learning-And-Vision-Atelier-LAVA/DASR)
 
 ### Requirments
